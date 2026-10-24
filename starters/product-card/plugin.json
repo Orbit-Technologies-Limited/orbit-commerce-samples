@@ -1,0 +1,58 @@
+{
+  "$schema": "https://api.myorbitcommerce.net/v1/plugin-schema.json",
+  "pluginId": "orbit-starter-product-card",
+  "version": "1.0.0",
+  "baseUrl": "http://localhost:3000",
+  "extensionPoints": [
+    {
+      "target": "dashboard.main.embed",
+      "url": "/embed",
+      "label": "Settings"
+    },
+    {
+      "target": "dashboard.product-details.block",
+      "url": "/product-card",
+      "label": "Product card"
+    }
+  ],
+  "oauth": {
+    "scopes": [
+      "product:read"
+    ],
+    "webhooks": [
+      {
+        "topic": "plugin.installed",
+        "path": "/api/webhooks/orbit"
+      },
+      {
+        "topic": "plugin.uninstalled",
+        "path": "/api/webhooks/orbit"
+      },
+      {
+        "topic": "product.updated",
+        "path": "/api/webhooks/orbit"
+      }
+    ]
+  },
+  "ui": {
+    "menu": {
+      "label": "Product card",
+      "icon": "package"
+    }
+  },
+  "settingsSchema": {
+    "show_stock": {
+      "type": "boolean",
+      "title": "Show stock",
+      "description": "Show the stock level on the card.",
+      "default": true
+    }
+  },
+  "lifecycle": {
+    "connectUrl": "/api/connect"
+  },
+  "listing": {
+    "name": "Product card starter",
+    "shortDescription": "A card on the product page of the merchant dashboard."
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "$schema": "https://api.myorbitcommerce.net/v1/plugin-schema.json",
+  "pluginId": "orbit-starter-events-only",
+  "version": "1.0.0",
+  "baseUrl": "http://localhost:3000",
+  "extensionPoints": [
+    {
+      "target": "dashboard.main.embed",
+      "url": "/embed",
+      "label": "Settings"
+    }
+  ],
+  "oauth": {
+    "scopes": [
+      "order:read",
+      "product:read"
+    ],
+    "webhooks": [
+      {
+        "topic": "plugin.installed",
+        "path": "/api/webhooks/orbit"
+      },
+      {
+        "topic": "plugin.uninstalled",
+        "path": "/api/webhooks/orbit"
+      },
+      {
+        "topic": "order.created",
+        "path": "/api/webhooks/orbit"
+      },
+      {
+        "topic": "order.paid",
+        "path": "/api/webhooks/orbit"
+      },
+      {
+        "topic": "product.updated",
+        "path": "/api/webhooks/orbit"
+      }
+    ]
+  },
+  "ui": {
+    "menu": {
+      "label": "Store events",
+      "icon": "zap"
+    }
+  },
+  "settingsSchema": {
+    "notify_email": {
+      "type": "string",
+      "title": "Send a summary to",
+      "description": "An email address for the daily summary.",
+      "default": ""
+    }
+  },
+  "lifecycle": {
+    "connectUrl": "/api/connect"
+  },
+  "listing": {
+    "name": "Store events starter",
+    "shortDescription": "Told when orders and products change, with no screen of its own."
+  }
+}

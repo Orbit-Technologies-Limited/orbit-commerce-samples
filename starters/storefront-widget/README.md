@@ -1,0 +1,1 @@
+# Storefront widget starter

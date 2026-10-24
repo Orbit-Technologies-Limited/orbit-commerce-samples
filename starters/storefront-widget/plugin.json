@@ -1,0 +1,55 @@
+{
+  "$schema": "https://api.myorbitcommerce.net/v1/plugin-schema.json",
+  "pluginId": "orbit-starter-storefront-widget",
+  "version": "1.0.0",
+  "baseUrl": "http://localhost:3000",
+  "extensionPoints": [
+    {
+      "target": "dashboard.main.embed",
+      "url": "/embed",
+      "label": "Settings"
+    },
+    {
+      "target": "storefront.product.widget",
+      "url": "/widget",
+      "label": "Product widget"
+    }
+  ],
+  "oauth": {
+    "scopes": [
+      "product:read"
+    ],
+    "webhooks": [
+      {
+        "topic": "plugin.installed",
+        "path": "/api/webhooks/orbit"
+      },
+      {
+        "topic": "plugin.uninstalled",
+        "path": "/api/webhooks/orbit"
+      }
+    ]
+  },
+  "ui": {
+    "menu": {
+      "label": "Shop widget",
+      "icon": "globe"
+    }
+  },
+  "settingsSchema": {
+    "headline": {
+      "type": "string",
+      "title": "Headline",
+      "description": "The widget's heading.",
+      "default": "You might also like",
+      "public": true
+    }
+  },
+  "lifecycle": {
+    "connectUrl": "/api/connect"
+  },
+  "listing": {
+    "name": "Storefront widget starter",
+    "shortDescription": "A block shoppers see on the product page."
+  }
+}

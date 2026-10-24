@@ -2,5 +2,8 @@ node_modules/
 .next/
 .data/
 .env
+# Each starter commits a .env of non-secret defaults (Prisma reads only .env).
+# Secrets go in .env.local, which every starter's own .gitignore covers.
+!starters/**/.env
 *.log
 *.tsbuildinfo
