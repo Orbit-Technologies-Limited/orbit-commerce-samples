@@ -1,0 +1,35 @@
+// The plugin's own database. Orbit's data stays in Orbit; this is what only your plugin knows.
+// prisma/schema.prisma runs on SQLite on your computer, and prisma/postgres/schema.prisma is the
+// same models on Postgres for Orbit hosting. Change both together, then run npm run db:migration <name>:
+// __tests__/prisma-parity.test.ts fails when they differ.
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+/// One row per store that installed this plugin. Tokens are encrypted at rest (lib/crypto.ts).
+model Connection {
+  storeId      String   @id @map("store_id")
+  installId    String   @map("install_id")
+  accessToken  String   @map("access_token")
+  refreshToken String   @map("refresh_token")
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  @@map("connections")
+}
+
+/// Every delivery, recorded before it is handled. The event id makes a redelivery a no-op.
+model WebhookEvent {
+  eventId    String   @id @map("event_id")
+  storeId    String   @map("store_id")
+  topic      String
+  receivedAt DateTime @default(now()) @map("received_at")
+
+  @@index([storeId, receivedAt])
+  @@map("webhook_events")
+}
