@@ -33,6 +33,14 @@
     "typescript": "6.0.3",
     "vitest": "3.2.7"
   },
+  "overrides": {
+    "next": {
+      "postcss": "^8.5.26"
+    },
+    "@prisma/config": {
+      "deepmerge-ts": "^8.0.0"
+    }
+  },
   "engines": {
     "node": ">=24"
   }
