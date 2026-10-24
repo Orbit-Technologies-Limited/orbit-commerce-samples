@@ -1,0 +1,8 @@
+node_modules
+.next
+.env*
+*.db
+.data
+coverage
+__tests__
+.git
