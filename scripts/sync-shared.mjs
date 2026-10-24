@@ -32,6 +32,8 @@ export function listSharedFiles(sharedDir) {
         walk(full);
       } else if (entry.isFile()) {
         if (entry.name.endsWith('.db') || entry.name.endsWith('.db-journal')) continue;
+        // A local .env holds someone's own values: never copied, never committed.
+        if (entry.name === '.env' || /^\.env.*\.local$/.test(entry.name)) continue;
         files.push(relative(sharedDir, full).split(sep).join('/'));
       }
     }

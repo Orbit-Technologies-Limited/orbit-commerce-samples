@@ -66,3 +66,11 @@ test('adopts a starter lockfile into _shared under the shared name', () => {
   assert.equal(shared.packages['node_modules/next'].version, '15.5.28');
   assert.equal(JSON.parse(readFileSync(join(root, 'starters', 'events-only', 'package-lock.json'), 'utf8')).packages['node_modules/next'].version, '15.5.28');
 });
+
+test('never copies a local .env or .env.local out of _shared', () => {
+  const root = repo();
+  writeFileSync(join(root, 'starters', '_shared', '.env'), 'DATABASE_URL="file:./mine.db"\n');
+  writeFileSync(join(root, 'starters', '_shared', '.env.local'), 'WEBHOOK_SECRET=x\n');
+  writeFileSync(join(root, 'starters', '_shared', '.env.example'), 'DATABASE_URL=\n');
+  assert.deepEqual(listSharedFiles(join(root, 'starters', '_shared')), ['.env.example', 'lib/env.ts', 'package-lock.json', 'package.json']);
+});

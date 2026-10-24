@@ -3,9 +3,12 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
+    "predev": "node scripts/ensure-env.mjs",
     "dev": "prisma generate && prisma db push --skip-generate && next dev",
+    "prebuild": "node scripts/ensure-env.mjs",
     "build": "prisma generate --schema prisma/postgres/schema.prisma && next build",
     "start": "node scripts/start.mjs",
+    "pretest": "node scripts/ensure-env.mjs",
     "test": "vitest run",
     "type-check": "tsc --noEmit",
     "db:migration": "node scripts/db-migration.mjs",

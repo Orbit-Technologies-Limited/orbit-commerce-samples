@@ -50,7 +50,7 @@ Shared by every starter, the same in all four:
 
 - The store id comes only from a verified token (`lib/session.ts`) or a verified Orbit call (the connect and webhook routes), never from a request's body, query string or headers.
 - Never log or print access tokens, refresh tokens, `WEBHOOK_SECRET` or `TOKEN_ENCRYPTION_KEY`.
-- Never read `.env.local` into the conversation: `orbit-plugin dev` keeps `WEBHOOK_SECRET` there, and `create` put `TOKEN_ENCRYPTION_KEY` there. `.env` holds only defaults that are safe to commit.
+- Never read `.env.local` into the conversation: `orbit-plugin dev` keeps `WEBHOOK_SECRET` there, and `create` put `TOKEN_ENCRYPTION_KEY` there. `.env` is made from `.env.example` the first time you run `npm run dev`, `npm test` or `npm run build`; git ignores it, and no `.env` file is ever committed.
 - To change where the plugin shows, its scopes, events or settings, edit `plugin.json` and let `dev` make the new test version.
 - Settings live in Orbit, not in this plugin's database. Add a field to `settingsSchema` in `plugin.json` (`type` is `string`, `number`, `boolean` or `select`, with a `title` and an optional `description` and `default`; a `select` has `options`). The Settings tab shows it at once, and code reads it with `orbit.settings.get()`.
 - A new database model goes into both Prisma schemas (a test checks they match), then `npm run db:migration <name>`.
