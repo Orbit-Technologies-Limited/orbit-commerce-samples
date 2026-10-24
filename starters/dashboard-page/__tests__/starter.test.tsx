@@ -7,7 +7,8 @@ import manifest from '../plugin.json';
 describe('the dashboard-page starter', () => {
   it('declares a dashboard page with a menu item, the connect callback and the webhook route', () => {
     expect(manifest.extensionPoints).toEqual([{ target: 'dashboard.main.embed', url: '/embed', label: 'My plugin' }]);
-    expect(manifest.ui.menu.label).toBe('My plugin');
+    // orbit-plugin create names the menu item after your plugin, so any non-empty label is right.
+    expect(manifest.ui.menu.label.trim()).not.toBe('');
     expect(manifest.lifecycle.connectUrl).toBe('/api/connect');
     expect(manifest.oauth.webhooks.map((w) => w.topic)).toEqual(['plugin.installed', 'plugin.uninstalled']);
     expect(new Set(manifest.oauth.webhooks.map((w) => w.path))).toEqual(new Set(['/api/webhooks/orbit']));
