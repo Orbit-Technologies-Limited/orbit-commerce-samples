@@ -47,6 +47,11 @@ jobs:
       # Online first; without the API it falls back to the schema the tool bundles, with a warning.
       - name: plugin.json passes Orbit's checks
         run: npx orbit-plugin validate
+      # AGENTS.md, CLAUDE.md and .mcp.json name commands and MCP tools; a name
+      # that does not exist sends a coding agent the wrong way on its first
+      # step. Checked against this starter's own copy of the tool.
+      - name: Agent files
+        run: node ../../scripts/check-agent-files.mjs --starter ${{ matrix.starter }}
 
   image:
     name: ${{ matrix.starter }} image
