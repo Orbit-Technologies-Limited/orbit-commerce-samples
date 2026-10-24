@@ -5,8 +5,8 @@
  * 1. With a Postgres DATABASE_URL, apply prisma/postgres/migrations (prisma migrate deploy).
  *    It takes a Postgres advisory lock, so two copies starting together are safe, and a
  *    migration that fails stops the container before it serves anything.
- * 2. Start the Next.js standalone server, which listens on PORT and HOSTNAME and stops
- *    cleanly on SIGTERM.
+ * 2. Start the Next.js standalone server on PORT and every interface; it stops cleanly on
+ *    SIGTERM.
  *
  * SQLite is for your computer only, so a file: DATABASE_URL skips step 1.
  */
@@ -72,7 +72,9 @@ export async function main(env = process.env, deps = {}) {
       return;
     }
   }
-  if (!env.HOSTNAME) env.HOSTNAME = '0.0.0.0';
+  // Next's server binds to HOSTNAME, which container runtimes set to the machine's name.
+  // Orbit hosting needs every interface, so this is not a default: it always wins.
+  env.HOSTNAME = '0.0.0.0';
   await startServer();
 }
 

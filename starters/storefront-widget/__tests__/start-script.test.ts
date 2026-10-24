@@ -28,11 +28,11 @@ describe('start.mjs', () => {
     error.mockRestore();
   });
 
-  it('starts at once on SQLite, on every interface unless HOSTNAME says otherwise', async () => {
+  it('starts at once on SQLite, on every interface even when the runtime set HOSTNAME to its own name', async () => {
     const run = vi.fn(() => 0);
     const startServer = vi.fn(async () => undefined);
     expect(isPostgres('file:/tmp/check.db')).toBe(false);
-    const env: Record<string, string | undefined> = { DATABASE_URL: 'file:/tmp/check.db' };
+    const env: Record<string, string | undefined> = { DATABASE_URL: 'file:/tmp/check.db', HOSTNAME: '9c954b668a44' };
     await main(env, { run, startServer, exit: vi.fn() });
     expect(run).not.toHaveBeenCalled();
     expect(startServer).toHaveBeenCalled();
