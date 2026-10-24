@@ -31,6 +31,7 @@ This starter's own files:
 - `app/(dashboard)/embed/overview.tsx`: the Overview tab of the plugin's page.
 - `lib/on-event.ts`: what the plugin does with each store event.
 - `README.md`.
+- `__tests__/starter.test.ts` or `starter.test.tsx`: this starter's own tests. The shared tests sit beside it.
 - The product-card starter also has `app/(dashboard)/product-card/page.tsx` (the card on the product page). The storefront-widget starter also has `app/(widget)/` (the block shoppers see) and `middleware.ts` (who may frame it).
 
 Shared by every starter, the same in all four:
@@ -51,8 +52,9 @@ Shared by every starter, the same in all four:
 - Never log or print access tokens, refresh tokens, `WEBHOOK_SECRET` or `TOKEN_ENCRYPTION_KEY`.
 - Never read `.env.local` into the conversation: `orbit-plugin dev` keeps `WEBHOOK_SECRET` there, and `create` put `TOKEN_ENCRYPTION_KEY` there. `.env` holds only defaults that are safe to commit.
 - To change where the plugin shows, its scopes, events or settings, edit `plugin.json` and let `dev` make the new test version.
+- Settings live in Orbit, not in this plugin's database. Add a field to `settingsSchema` in `plugin.json` (`type` is `string`, `number`, `boolean` or `select`, with a `title` and an optional `description` and `default`; a `select` has `options`). The Settings tab shows it at once, and code reads it with `orbit.settings.get()`.
 - A new database model goes into both Prisma schemas (a test checks they match), then `npm run db:migration <name>`.
-- Colour only from Constellation's `--o-*` tokens; no colour values of your own.
+- Colour only from Constellation's `--o-*` tokens, such as `var(--o-fg-1)` for text and `var(--o-fg-2)` for quieter text; no colour values of your own. https://developers.orbitcommerce.net/constellation documents them.
 - Words in the UI: plain English, UK spelling, sentence case, no em dashes, no emojis.
 
 ## Docs
