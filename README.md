@@ -19,7 +19,7 @@ cd my-plugin && npx orbit-plugin login
 npx orbit-plugin dev
 ```
 
-`dev` makes you a test store if you have none, opens a secure link to your computer, makes a test version of your plugin on that link and opens the test store at your plugin. Ctrl+C removes the test version again.
+`dev` makes you a test store if you have none, opens a secure link to your computer, makes a test version of your plugin on that link and opens Development stores in the partner dashboard, where Open store shows the test store with your plugin. Ctrl+C removes the test version again.
 
 ## What every starter has
 

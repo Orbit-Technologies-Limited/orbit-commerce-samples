@@ -10,7 +10,7 @@ cd my-plugin && npx orbit-plugin login
 npx orbit-plugin dev
 ```
 
-`dev` makes a test store, gives you a secure link to your computer, creates a test version of the plugin and opens the store at your plugin.
+`dev` makes a test store, gives you a secure link to your computer, creates a test version of the plugin and opens Development stores in the partner dashboard: choose Open store to see it.
 
 ## Change it
 
