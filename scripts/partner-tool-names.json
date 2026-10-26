@@ -23,7 +23,7 @@
     "get_plugin_readiness",
     "get_server_metrics",
     "get_server_uptime",
-    "get_test_store_sign_in_link",
+    "get_test_store_page",
     "install_on_test_store",
     "list_alert_incidents",
     "list_currencies",
