@@ -13,7 +13,9 @@
   "oauth": {
     "scopes": [
       "order:read",
-      "product:read"
+      "product:read",
+      "settings:read:store",
+      "settings:update:store"
     ],
     "webhooks": [
       {
