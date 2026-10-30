@@ -37,4 +37,13 @@ describe('the storefront widget', () => {
     expect(stop).toHaveBeenCalled();
     expect(bridge.dispose).toHaveBeenCalled();
   });
+
+  // jsdom has no layout, so this pins the style that makes the measured box include the h2/p margins (QA round 2: 66 px reported, 102 px of content).
+  it('observes a root that contains its children\'s margins, so the frame gets the full height', () => {
+    const { unmount } = render(<WidgetClient headline="Pairs well with" productId="p1" pluginId="orbit-starter-storefront-widget" />);
+    const observed = bridge.observeHeight.mock.calls.at(-1)?.[0] as HTMLElement;
+    expect(observed.style.display).toBe('flow-root');
+    expect(observed.contains(screen.getByRole('heading', { name: 'Pairs well with' }))).toBe(true);
+    unmount();
+  });
 });
