@@ -15,8 +15,9 @@ export function WidgetClient({ headline, productId, pluginId }: { headline: stri
     };
   }, [pluginId]);
 
+  // flow-root: the box contains its children's margins, so observeHeight reports the whole widget.
   return (
-    <div ref={root}>
+    <div ref={root} style={{ display: 'flow-root' }}>
       <h2>{headline}</h2>
       <p>
         {productId
