@@ -1,0 +1,50 @@
+{
+  "name": "orbit-starter",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "predev": "node scripts/ensure-env.mjs",
+    "dev": "prisma generate && prisma db push --skip-generate && next dev",
+    "prebuild": "node scripts/ensure-env.mjs",
+    "build": "prisma generate --schema prisma/postgres/schema.prisma && next build",
+    "start": "node scripts/start.mjs",
+    "pretest": "node scripts/ensure-env.mjs",
+    "test": "vitest run",
+    "type-check": "tsc --noEmit",
+    "db:migration": "node scripts/db-migration.mjs",
+    "postinstall": "prisma generate"
+  },
+  "dependencies": {
+    "@orbitcommerce/constellation": "1.2.1",
+    "@orbitcommerce/plugin-ui": "1.0.0",
+    "@orbitcommerce/sdk": "5.1.0",
+    "@prisma/adapter-pg": "6.19.3",
+    "@prisma/client": "6.19.3",
+    "next": "15.5.28",
+    "react": "19.3.0",
+    "react-dom": "19.3.0"
+  },
+  "devDependencies": {
+    "@orbitcommerce/plugin-cli": "1.2.0",
+    "@testing-library/react": "16.3.3",
+    "@testing-library/user-event": "14.6.1",
+    "@types/node": "24.19.2",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "jsdom": "25.0.1",
+    "prisma": "6.19.3",
+    "typescript": "6.0.3",
+    "vitest": "3.2.7"
+  },
+  "overrides": {
+    "next": {
+      "postcss": "^8.5.26"
+    },
+    "@prisma/config": {
+      "deepmerge-ts": "^8.0.0"
+    }
+  },
+  "engines": {
+    "node": ">=24"
+  }
+}

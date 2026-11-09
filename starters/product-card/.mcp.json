@@ -1,0 +1,18 @@
+{
+  "mcpServers": {
+    "orbit-partner": {
+      "type": "http",
+      "url": "${ORBIT_MCP_URL:-https://api.myorbitcommerce.net/mcp/partner}"
+    },
+    "orbit-dev": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@orbitcommerce/mcp-dev@^0.2.0"],
+      "env": {
+        "ORBIT_API_URL": "${ORBIT_API_URL:-https://api.myorbitcommerce.net}",
+        "ORBIT_OPENAPI_URL": "${ORBIT_OPENAPI_URL:-https://api.myorbitcommerce.net/v1/openapi.json}",
+        "ORBIT_DOCS_URL": "${ORBIT_DOCS_URL:-https://developers.orbitcommerce.net}"
+      }
+    }
+  }
+}

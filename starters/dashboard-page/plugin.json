@@ -1,0 +1,52 @@
+{
+  "$schema": "https://api.myorbitcommerce.net/v1/plugin-schema.json",
+  "pluginId": "orbit-starter-dashboard-page",
+  "version": "1.0.0",
+  "baseUrl": "http://localhost:3000",
+  "extensionPoints": [
+    {
+      "target": "dashboard.main.embed",
+      "url": "/embed",
+      "label": "My plugin"
+    }
+  ],
+  "oauth": {
+    "scopes": [
+      "product:list",
+      "product:read",
+      "settings:read:store",
+      "settings:update:store"
+    ],
+    "webhooks": [
+      {
+        "topic": "plugin.installed",
+        "path": "/api/webhooks/orbit"
+      },
+      {
+        "topic": "plugin.uninstalled",
+        "path": "/api/webhooks/orbit"
+      }
+    ]
+  },
+  "ui": {
+    "menu": {
+      "label": "My plugin",
+      "icon": "star"
+    }
+  },
+  "settingsSchema": {
+    "greeting": {
+      "type": "string",
+      "title": "Greeting",
+      "description": "Shown at the top of your plugin page.",
+      "default": "Hello"
+    }
+  },
+  "lifecycle": {
+    "connectUrl": "/api/connect"
+  },
+  "listing": {
+    "name": "Dashboard page starter",
+    "shortDescription": "A page of your own in the merchant dashboard."
+  }
+}
