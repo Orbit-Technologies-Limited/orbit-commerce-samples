@@ -8,7 +8,7 @@ describe('env', () => {
     expect(requireEnv('WEBHOOK_SECRET', { WEBHOOK_SECRET: 'x' })).toBe('x');
   });
   it('normalises the API address', () => {
-    expect(orbitApiUrl({ ORBIT_API_URL: 'http://orbitrig:13010/graphql/' })).toBe('http://orbitrig:13010');
+    expect(orbitApiUrl({ ORBIT_API_URL: 'http://localhost:13010/graphql/' })).toBe('http://localhost:13010');
     expect(orbitApiUrl({})).toBe('https://api.myorbitcommerce.net');
   });
   it('knows a Postgres address', () => {
