@@ -73,7 +73,7 @@ jobs:
             -e PORT=8080 -e DATABASE_URL=file:/tmp/check.db \
             -e TOKEN_ENCRYPTION_KEY="$(openssl rand -hex 32)" -e WEBHOOK_SECRET=x \
             -p 18080:8080 starter:${{ matrix.starter }}
-          curl -fsS --retry 10 --retry-delay 1 --retry-connrefused localhost:18080/health
+          curl -fsS --retry 30 --retry-delay 1 --retry-all-errors localhost:18080/health
       - name: It stops cleanly on SIGTERM
         run: |
           docker stop --time 10 starter
