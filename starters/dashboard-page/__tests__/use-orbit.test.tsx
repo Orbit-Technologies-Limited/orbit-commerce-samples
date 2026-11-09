@@ -1,7 +1,7 @@
 // @vitest-environment jsdom
 import { renderHook, waitFor } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
-import { useOrbit } from '../components/use-orbit';
+import { NOT_IN_DASHBOARD, useOrbit } from '../components/use-orbit';
 
 function fakeClient(ready: Promise<void>, token = 'session-1') {
   let current = token;
@@ -33,5 +33,33 @@ describe('useOrbit', () => {
     const { result } = renderHook(() => useOrbit({ create: () => client as never }));
     await waitFor(() => expect(result.current.status).toBe('error'));
     expect(result.current).toEqual({ status: 'error', message: "This page opens inside your store dashboard. Open it from the plugin's menu item there." });
+  });
+
+  it('shows the dashboard message when the client cannot start', async () => {
+    const { result } = renderHook(() => useOrbit({
+      create: () => { throw new Error('Orbit SDK cannot receive dashboard authentication outside an iframe'); }
+    }));
+    await waitFor(() => expect(result.current.status).toBe('error'));
+    expect(result.current).toEqual({ status: 'error', message: NOT_IN_DASHBOARD });
+  });
+
+  // This file runs as a top-level page on localhost, where the SDK's package
+  // root throws while it loads. The page must still say where to open it.
+  it('shows the dashboard message when the SDK refuses to load outside a dashboard', async () => {
+    const { result } = renderHook(() => useOrbit());
+    await waitFor(() => expect(result.current.status).toBe('error'), { timeout: 5000 });
+    expect(result.current).toEqual({ status: 'error', message: NOT_IN_DASHBOARD });
+  });
+
+  it('destroys a client that arrives after the page has gone', async () => {
+    const client = fakeClient(Promise.resolve());
+    let arrive: (value: never) => void = () => {};
+    const create = vi.fn(() => new Promise<never>((resolve) => { arrive = resolve; }));
+    const { unmount } = renderHook(() => useOrbit({ create }));
+    await waitFor(() => expect(create).toHaveBeenCalled());
+    unmount();
+    arrive(client as never);
+    await waitFor(() => expect(client.destroy).toHaveBeenCalledTimes(1));
+    expect(client.ready).not.toHaveBeenCalled();
   });
 });
